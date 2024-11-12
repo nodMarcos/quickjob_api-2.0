@@ -9,17 +9,8 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
-  config.jwt do |jwt|
-    jwt.secret = ENV.fetch('DEVISE_JWT_SECRET_KEY', nil)
-    jwt.dispatch_requests = [
-      ['POST', %r{^/login$}]
-    ]
-    jwt.revocation_requests = [
-      ['DELETE', %r{^/logout$}]
-    ]
-    jwt.expiration_time = 1.day.to_i
-  end
-
+  config.secret_key = ENV['DEVISE_SECRET_KEY']
+  
   config.navigational_formats = [ :json ]
 
   # The secret key used by Devise. Devise uses this key to generate
@@ -323,4 +314,10 @@ Devise.setup do |config|
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
+  config.jwt do |jwt|
+    jwt.secret = ENV['DEVISE_JWT_SECRET_KEY']
+    jwt.dispatch_requests = [['POST', %r{^/login$}]]
+    jwt.revocation_requests = [['DELETE', %r{^/logout$}]]
+    jwt.expiration_time = 100.years.to_i
+  end
 end

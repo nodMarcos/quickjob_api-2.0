@@ -1,3 +1,3 @@
-json.user do |user|
-  json.partial! 'user/user', user: @user
+json.user do
+  json.partial! 'users/user', user: current_user
 end

@@ -4,7 +4,7 @@ class Users::SessionsController < Devise::SessionsController
   private
 
   def respond_with(resource, _opts = {})
-    render 'users/show', locals: { user: resource }, status: :created
+    render 'users/show'
   end
 
   def respond_to_on_destroy
