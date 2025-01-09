@@ -2,7 +2,8 @@ class ServicesController < ApplicationController
   before_action :set_service, only: %i[ show update destroy ]
 
   def index
-    @services = Service.all
+    @services = ServiceSearch.from_params(params).raw_results
+    render json: @services
   end
 
   def show
